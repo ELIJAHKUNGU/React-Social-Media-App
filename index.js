@@ -7,7 +7,7 @@ const app = express()
     //ROUTES PATHS
 const UserRoute = require('./routes/users');
 const UserAuth = require('./routes/auth');
-
+const postRoute = require("./routes/post")
 
 dotenv.config();
 mongoose.connect(
@@ -31,6 +31,7 @@ app.get('/', (req, res) => {
 })
 app.use("/api/users", UserRoute)
 app.use("/api/auth", UserAuth)
+app.use("/api/auth", postRoute)
 
 const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {
