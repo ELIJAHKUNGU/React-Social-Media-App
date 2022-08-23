@@ -11,7 +11,10 @@ const Feeds = () => {
   <div className="feeds">
     <div className="feedWrapper">
       <Share/>
-      <Post/>
+      {Posts.map((p) => (
+          <Post key={p.id} post={p} />
+        ))}
+      
 
     </div>
   </div>
