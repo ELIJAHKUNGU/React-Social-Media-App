@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 })
 app.use("/api/users", UserRoute)
 app.use("/api/auth", UserAuth)
-app.use("/api/auth", postRoute)
+app.use("/api/posts", postRoute)
 
 const PORT = process.env.PORT || 8000
 app.listen(PORT, () => {
