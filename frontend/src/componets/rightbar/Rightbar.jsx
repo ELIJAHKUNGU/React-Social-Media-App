@@ -1,8 +1,11 @@
+import React from 'react'
 import "./rightbar.css";
 import { Users } from "../../dummyData";
 import Online from "../Online/Online";
 
-const Rightbar = (profile) => {
+const Rightbar = ({profile}) => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
   const HomeRightbar = () => {
     return (
       <>
@@ -45,7 +48,7 @@ const Rightbar = (profile) => {
         <div className="rightbarFollowings">
           <div className="rightbarFollowing">
             <img
-              src="assets/person/1.jpeg"
+              src={`${PF}person/1.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -53,7 +56,7 @@ const Rightbar = (profile) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/2.jpeg"
+              src={`${PF}person/2.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -61,7 +64,7 @@ const Rightbar = (profile) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/3.jpeg"
+              src={`${PF}person/3.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -69,7 +72,7 @@ const Rightbar = (profile) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/4.jpeg"
+              src={`${PF}person/4.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -77,7 +80,7 @@ const Rightbar = (profile) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/5.jpeg"
+              src={`${PF}person/5.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />
@@ -85,7 +88,7 @@ const Rightbar = (profile) => {
           </div>
           <div className="rightbarFollowing">
             <img
-              src="assets/person/6.jpeg"
+              src={`${PF}person/6.jpeg`}
               alt=""
               className="rightbarFollowingImg"
             />

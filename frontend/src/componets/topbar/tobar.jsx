@@ -2,12 +2,16 @@ import { Notifications, Person, Search, Chat } from '@material-ui/icons'
 import "./topbar.css"
 // import { Chat } from '@mui/icons-material'
 import React from 'react'
+import {Link} from "react-router-dom"
 
 const Tobar = () => {
   return (
     <div className="topbarContainer">
     <div className="topbarLeft">
+      <Link to="/" style={{textDecoration:"none"}}>
       <span className="logo">Lamasocial</span>
+      </Link>
+
     </div>
     <div className="topbarCenter">
       <div className="searchbar">
