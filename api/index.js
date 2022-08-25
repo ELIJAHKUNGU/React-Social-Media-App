@@ -25,10 +25,15 @@ mongoose.connect(
 app.use(express.json());
 app.use(helmet());
 app.use(morgan("common"));
+var cors = require('cors')
+
 //Routes
 app.get('/', (req, res) => {
     res.send("Welcome to home Page")
+        // ,    "proxy": "http://localhost:8000/api"
 })
+app.use(cors())
+
 app.use("/api/users", UserRoute)
 app.use("/api/auth", UserAuth)
 app.use("/api/posts", postRoute)
