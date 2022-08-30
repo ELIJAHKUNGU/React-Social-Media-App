@@ -23,7 +23,7 @@ const Messanger = () => {
     <div className="chatBox">
         <div className="chatBoxWrapper">
             <div className="chatBoxTop">
-                box
+             
                 <Message/>
                 <Message own={true}/>
                 <Message/>
