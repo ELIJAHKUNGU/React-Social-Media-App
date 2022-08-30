@@ -1,11 +1,18 @@
 import React from 'react'
+import { useState, useEffect, useContext } from 'react';
 import ChatOnline from '../../components/chatOnline/ChatOnline';
 import Conversation from '../../components/conversation/conversation'
 import Message from "../../components/message/Message";
 import Topbar from '../../components/topbar/Topbar'
-import "./message.css"
+import {AuthContext  } from "../../context/AuthContext";
+import "./messenger.css"
 
 const Messanger = () => {
+  const [conversation , setConversation] = useState([])
+
+  const {user} = useContext(AuthContext);
+  console.log(user);
+  
   return (
     <>
    <Topbar/>

@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import Message from "./pages/message/message";
+import Messenger from "./pages/messenger/messenger";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -18,19 +18,21 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          {user ? <Home /> : <Register />}
-        </Route>
-        <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
+          {" "}
+          {user ? <Home /> : <Register />}{" "}
+        </Route>{" "}
+        <Route path="/login"> {user ? <Redirect to="/" /> : <Login />} </Route>{" "}
         <Route path="/register">
-          {user ? <Redirect to="/" /> : <Register />}
-        </Route>
+          {" "}
+          {user ? <Redirect to="/" /> : <Register />}{" "}
+        </Route>{" "}
         <Route path="/profile/:username">
           <Profile />
-        </Route>
+        </Route>{" "}
         <Route path="/messages">
-          <Message/>
-        </Route>
-      </Switch>
+          <Messenger />
+        </Route>{" "}
+      </Switch>{" "}
     </Router>
   );
 }
