@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext,useRef } from "react";
 import ChatOnline from "../../components/chatOnline/ChatOnline";
 import Conversation from "../../components/conversation/conversation";
 import Message from "../../components/message/Message";
@@ -15,6 +15,8 @@ const Messanger = () => {
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+
+  const scrollRef = useRef();
 
   const { user } = useContext(AuthContext);
   console.log(user);
@@ -42,60 +44,85 @@ const Messanger = () => {
     };
     getMessages();
   }, [currentChat]);
-  console.log(messages)
+  // console.log(messages)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const message = {
+      sender: user._id,
+      text: newMessage,
+      conversationId: currentChat._id,
+    };
+    try {
+      const res = await axios.post("/messages", message);
+      setMessages([...messages, res.data]);
+      setNewMessage("");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-  return (
-    <>
-      <Topbar />
-      <div className="messenger">
-        <div className="chatMenu">
-          <div className="chatWrapper">
-            <input
-              type="text"
-              placeholder="Search for friends"
-              className="chatMenuInput"
-            />
-            
-            {conversations.map((c) => (
-              <div onClick={() => setCurrentChat(c)}>
-                <Conversation conversation={c} currentUser={user} />
-                </div>
-            ))}
-            
-          </div>
-        </div>
-        <div className="chatBox">
-          <div className="chatBoxWrapper">
-            {currentChat ? (
-              <>
-            <div className="chatBoxTop">
-              <Message />
-              <Message own={true} />
-              <Message />
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({behaviour:"smooth"})
+  }, [messages])
+
+
+return (
+  <>
+    <Topbar />
+    <div className="messenger">
+      <div className="chatMenu">
+        <div className="chatWrapper">
+          <input
+            type="text"
+            placeholder="Search for friends"
+            className="chatMenuInput"
+          />
+
+          {conversations.map((c) => (
+            <div onClick={() => setCurrentChat(c)}>
+              <Conversation conversation={c} currentUser={user} />
             </div>
-            <div className="chatBoxBottom">
-              <textarea
-                className="chatMessageInput"
-                placeholder="write something..."
-              ></textarea>
-              <button className="chatSubmitButton">Send</button>
-            </div>
-            </>
-              ) : (
-                <span className="noConversationText">
-                  Open a conversation to start a chat.
-                </span>
-              )}
-          </div>
-        </div>
-        <div className="chatOnline">
-          <div className="chatOnlineWrapper">
-            <ChatOnline />
-          </div>
+          ))}
         </div>
       </div>
-    </>
-  );
+      <div className="chatBox">
+        <div className="chatBoxWrapper">
+          {currentChat ? (
+            <>
+              <div className="chatBoxTop">
+                {messages.map((m) => (
+                  <div ref={scrollRef}>
+                    <Message message={m} own={m.sender === user._id} />
+                  </div>
+                ))}
+              </div>
+              <div className="chatBoxBottom">
+                <textarea
+                  className="chatMessageInput"
+                  placeholder="write something..."
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  value={newMessage}
+                ></textarea>
+                <button className="chatSubmitButton" onClick={handleSubmit}>
+                  Send
+                </button>
+              </div>
+            </>
+          ) : (
+            <span className="noConversationText">
+              Open a conversation to start a chat.
+            </span>
+          )}
+        </div>
+      </div>
+      <div className="chatOnline">
+        <div className="chatOnlineWrapper">
+          <ChatOnline />
+        </div>
+      </div>
+    </div>
+  </>
+);
 };
 
 export default Messanger;
